@@ -1,0 +1,267 @@
+.pageHero {
+  background: var(--primary);
+  padding: 200px 0 100px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pageHero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.15), transparent 60%);
+  pointer-events: none;
+}
+
+.pageHero h1 {
+  font-size: 3.5rem;
+  color: #fff;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.pageHero p {
+  font-size: 1.25rem;
+  color: #9CA3AF;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.filterBar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.filterPill {
+  padding: 10px 20px;
+  border-radius: 24px;
+  border: 1px solid #E5E7EB;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterPill:hover, .filterPill.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.listingCard {
+  padding: 0;
+  overflow: hidden;
+}
+
+.cardImg {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.listingCard:hover .cardImg {
+  transform: scale(1.03);
+}
+
+.imgWrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--accent);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.cardBody {
+  padding: 24px;
+}
+
+.cardBody h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.meta {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.price {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.tags {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.avatarCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  font-family: var(--font-heading);
+  margin-bottom: 16px;
+}
+
+.rating {
+  color: #F59E0B;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.formSection {
+  padding: 60px 0 100px;
+  background: var(--surface);
+}
+
+.formCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 48px;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #E5E7EB;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.formInput {
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+  color: var(--text-main);
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  .pageHero h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.checkboxLabel:hover {
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.uploadArea {
+  border: 2px dashed #E5E7EB;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.uploadArea:hover {
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.03);
+}
+
+.btnRow {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.btnOutline {
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: 2px solid #E5E7EB;
+  background: transparent;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-main);
+}
+
+.btnOutline:hover {
+  border-color: var(--primary);
+}
+
+.sectionContent {
+  padding: 80px 0;
+}
