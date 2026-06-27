@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
+import { images } from '@/lib/images';
 
 const testimonials = [
   {
@@ -14,26 +16,29 @@ const testimonials = [
     rating: 5,
     project: '3-Bedroom Bungalow Build',
     avatar: 'DK',
+    image: images.buyerPortrait,
   },
   {
     quote:
-      'The Build My Project wizard showed me a 3-bed bungalow in my budget was actually possible. I\'d been told by brokers I needed twice as much.',
+      'The Build My Project wizard showed me a 3-bed bungalow in my budget was actually possible. I had been told by brokers I needed twice as much.',
     name: 'Wanjiku N.',
     role: 'Accountant',
     location: 'Nairobi, Kenya',
     rating: 5,
     project: 'First-time Home Buyer',
     avatar: 'WN',
+    image: images.homeownerPortrait,
   },
   {
     quote:
-      'I went from chasing payments to getting paid within 48 hours of completing a milestone. Tujenge\'s escrow changed my business.',
+      'I went from chasing payments to getting paid within 48 hours of completing a milestone. Tujenge escrow changed my business.',
     name: 'Joseph M.',
     role: 'General Contractor',
     location: 'Ruai, Kenya',
     rating: 5,
     project: '15+ projects managed',
     avatar: 'JM',
+    image: images.contractorPortrait,
   },
   {
     quote:
@@ -44,16 +49,18 @@ const testimonials = [
     rating: 5,
     project: 'Supplies to 30+ contractors',
     avatar: 'AK',
+    image: images.supplierPortrait,
   },
   {
     quote:
-      'I\'ve tripled my freelance leads since joining Tujenge. The portfolio feature lets my work speak for itself.',
+      'I have tripled my freelance leads since joining Tujenge. The portfolio feature lets my work speak for itself.',
     name: 'Brian O.',
     role: 'Architect',
     location: 'Kilimani, Nairobi',
     rating: 5,
     project: 'Featured Professional',
     avatar: 'BO',
+    image: images.architectPortrait,
   },
   {
     quote:
@@ -64,6 +71,7 @@ const testimonials = [
     rating: 5,
     project: '40-unit Estate',
     avatar: 'FA',
+    image: images.engineerPortrait,
   },
 ];
 
@@ -71,6 +79,7 @@ export default function Testimonials() {
   const [index, setIndex] = useState(0);
   const [perPage, setPerPage] = useState(3);
   const trackRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
 
   useEffect(() => {
     const update = () => {
@@ -88,8 +97,6 @@ export default function Testimonials() {
   const next = () => setIndex((i) => (i >= maxIndex ? 0 : i + 1));
   const prev = () => setIndex((i) => (i <= 0 ? maxIndex : i - 1));
 
-  // Auto-advance every 6 seconds, pause on hover
-  const pausedRef = useRef(false);
   useEffect(() => {
     let timer: ReturnType<typeof setInterval> | null = null;
     const tick = () => {
@@ -163,14 +170,20 @@ export default function Testimonials() {
                     </blockquote>
 
                     <div className="flex items-center gap-3 pt-5 border-t border-white/10">
-                      <div className="flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-br from-gold-500 to-gold-700 text-navy-900 font-display font-bold text-sm">
-                        {t.avatar}
+                      <div className="relative w-11 h-11 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gold-500/40">
+                        <Image
+                          src={t.image}
+                          alt={t.name}
+                          fill
+                          sizes="44px"
+                          className="object-cover"
+                        />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="font-display font-semibold text-white">
                           {t.name}
                         </div>
-                        <div className="text-white/60 text-xs">
+                        <div className="text-white/60 text-xs truncate">
                           {t.role} · {t.location}
                         </div>
                       </div>
@@ -184,7 +197,6 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Controls */}
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               type="button"
@@ -195,7 +207,6 @@ export default function Testimonials() {
               <ChevronLeft className="w-5 h-5" />
             </button>
 
-            {/* Indicators */}
             <div className="flex gap-2">
               {Array.from({ length: maxIndex + 1 }).map((_, i) => (
                 <button

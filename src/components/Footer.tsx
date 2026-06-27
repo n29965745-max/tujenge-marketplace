@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Mail,
   Twitter,
@@ -8,6 +9,7 @@ import {
   Youtube,
   Send,
 } from 'lucide-react';
+import { images } from '@/lib/images';
 
 const columns = [
   {
@@ -18,17 +20,16 @@ const columns = [
       { label: 'Buy a House', href: '/properties?type=house' },
       { label: 'Rentals', href: '/properties?intent=rent' },
       { label: 'Property Valuation', href: '/properties/value' },
-      { label: 'Title Verification', href: '/properties/due-diligence' },
+      { label: 'Title Verification', href: '/properties/value' },
     ],
   },
   {
     title: 'For Sellers',
     links: [
       { label: 'List a Property', href: '/properties/add' },
-      { label: 'List Materials', href: '/register/supplier' },
-      { label: 'List Equipment', href: '/equipment' },
       { label: 'Become a Supplier', href: '/register/supplier' },
       { label: 'Join as Contractor', href: '/register/contractor' },
+      { label: 'List Equipment', href: '/equipment' },
     ],
   },
   {
@@ -46,10 +47,10 @@ const columns = [
     links: [
       { label: 'About', href: '/about' },
       { label: 'Trust & Safety', href: '/trust' },
-      { label: 'Press', href: '/press' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Help Center', href: '/help' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Careers', href: '/about' },
     ],
   },
 ];
@@ -57,15 +58,25 @@ const columns = [
 export default function Footer() {
   return (
     <footer className="bg-navy-900 text-white relative overflow-hidden">
-      {/* Decorative gold accent */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/40 to-transparent" />
+
+      {/* Decorative background image */}
+      <div className="absolute inset-0 opacity-[0.04]">
+        <Image
+          src={images.africanConstruction}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
 
       <div className="container-x py-16 lg:py-20 relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 mb-12">
           {/* Brand + newsletter */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-2 mb-5">
-              <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-gold-500 text-navy-900 font-display font-extrabold text-lg">
+              <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 text-navy-900 font-display font-extrabold text-lg shadow-gold-sm">
                 T
               </span>
               <span className="font-display font-extrabold text-xl">Tujenge</span>
@@ -109,7 +120,6 @@ export default function Footer() {
               </p>
             </form>
 
-            {/* Socials */}
             <div className="flex items-center gap-2">
               {[
                 { Icon: Twitter, label: 'X / Twitter' },
@@ -130,7 +140,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
           <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
             {columns.map((col) => (
               <div key={col.title}>
@@ -157,6 +166,8 @@ export default function Footer() {
         {/* Final CTA strip */}
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gold-500 to-gold-700 text-navy-900 p-8 lg:p-10 mb-12">
           <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10 blur-2xl" aria-hidden />
+          <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-navy-900/10 blur-2xl" aria-hidden />
+
           <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div>
               <h3 className="font-display font-extrabold text-2xl lg:text-3xl mb-2">
@@ -189,7 +200,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-sm text-white/50">
           <div>
             © {new Date().getFullYear()} Tujenge. Building Africa's future.

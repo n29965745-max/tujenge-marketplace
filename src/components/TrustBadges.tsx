@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import {
   ShieldCheck,
   BadgeCheck,
@@ -8,37 +9,44 @@ import {
 } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import AnimatedCounter from './AnimatedCounter';
+import { images } from '@/lib/images';
 
 const badges = [
   {
     icon: BadgeCheck,
     title: 'Verified Suppliers',
     description: 'Business registration, tax PIN, and operations verified.',
+    image: images.handShakeBusiness,
   },
   {
     icon: ShieldCheck,
     title: 'Verified Contractors',
     description: 'Licensed, bonded, and insurance-verified.',
+    image: images.safetyGear,
   },
   {
     icon: FileCheck,
     title: 'Verified Documents',
     description: 'Title deeds and legal documents cross-checked.',
+    image: images.blueprint,
   },
   {
     icon: Lock,
     title: 'Secure Payments',
     description: 'PCI-compliant, M-Pesa + Stripe + bank-grade security.',
+    image: images.siteAerial,
   },
   {
     icon: PiggyBank,
     title: 'Escrow Protection',
     description: 'Funds held safely until milestones are completed.',
+    image: images.contractor3,
   },
   {
     icon: Building,
     title: 'Verified Properties',
     description: 'Title verified through official registries.',
+    image: images.africanConstruction,
   },
 ];
 
@@ -70,29 +78,38 @@ export default function TrustBadges() {
             <ScrollReveal
               key={badge.title}
               delay={i * 80}
-              className="card card-interactive p-6 lg:p-7 group"
+              className="card card-interactive overflow-hidden group"
             >
-              <div className="flex items-start gap-4">
-                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/10 ring-1 ring-emerald-500/20 group-hover:bg-emerald-500 group-hover:ring-emerald-500 transition-all flex-shrink-0">
+              {/* Image header */}
+              <div className="relative aspect-[16/9] overflow-hidden bg-navy-100">
+                <Image
+                  src={badge.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/80 via-navy-900/30 to-transparent" />
+                <div className="absolute bottom-3 right-3 flex items-center justify-center w-10 h-10 rounded-lg bg-white/95 backdrop-blur-sm ring-1 ring-emerald-500/30 group-hover:bg-emerald-500 transition-all">
                   <badge.icon
-                    className="w-6 h-6 text-emerald-600 group-hover:text-white transition-colors"
+                    className="w-5 h-5 text-emerald-600 group-hover:text-white transition-colors"
                     strokeWidth={2}
                   />
                 </div>
-                <div className="min-w-0">
-                  <h3 className="font-display font-semibold text-base text-navy-900 mb-1.5">
-                    {badge.title}
-                  </h3>
-                  <p className="text-navy-600 text-sm leading-relaxed">
-                    {badge.description}
-                  </p>
-                </div>
+              </div>
+
+              <div className="p-6 lg:p-7">
+                <h3 className="font-display font-semibold text-base text-navy-900 mb-1.5">
+                  {badge.title}
+                </h3>
+                <p className="text-navy-600 text-sm leading-relaxed">
+                  {badge.description}
+                </p>
               </div>
             </ScrollReveal>
           ))}
         </div>
 
-        {/* Stats band */}
         <ScrollReveal>
           <div className="relative rounded-3xl bg-navy-900 text-white p-8 lg:p-12 overflow-hidden">
             <div className="absolute inset-0 bg-hero-pattern opacity-[0.05]" aria-hidden />

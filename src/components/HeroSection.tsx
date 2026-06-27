@@ -1,12 +1,13 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import {
-  ShieldCheck,
   BadgeCheck,
   FileCheck,
   Lock,
   Sparkles,
   ArrowRight,
 } from 'lucide-react';
+import { images } from '@/lib/images';
 
 const trustItems = [
   { icon: BadgeCheck, label: 'Verified Suppliers' },
@@ -20,11 +21,14 @@ export default function HeroSection() {
     <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-navy-900 text-white pt-[72px]">
       {/* Background image */}
       <div className="absolute inset-0">
-        <img
-          src="/hero_background.png"
-          alt=""
-          aria-hidden
-          className="w-full h-full object-cover"
+        <Image
+          src={images.heroConstruction}
+          alt="Modern African construction site with workers and materials"
+          fill
+          priority
+          sizes="100vw"
+          quality={85}
+          className="object-cover"
         />
         {/* Multi-layer gradient overlay for premium look */}
         <div className="absolute inset-0 bg-gradient-to-br from-navy-900/95 via-navy-900/85 to-navy-900/70" />
@@ -118,35 +122,72 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Floating stat card */}
+        {/* Floating stat card with construction image */}
         <div
-          className="hidden lg:flex absolute right-[8%] top-[28%] bg-white/95 backdrop-blur-md rounded-2xl p-5 shadow-2xl border border-white/30 max-w-[260px] animate-fade-up"
+          className="hidden lg:block absolute right-[8%] top-[22%] w-[280px] animate-fade-up"
           style={{ animationDelay: '0.6s' }}
         >
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-gold-500/15 flex items-center justify-center">
-              <ShieldCheck className="w-5 h-5 text-gold-500" strokeWidth={2} />
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/30 backdrop-blur-md bg-white/95">
+            <div className="relative h-32">
+              <Image
+                src={images.safetyGear}
+                alt="Construction worker in safety gear"
+                fill
+                sizes="280px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-900/80 via-navy-900/20 to-transparent" />
             </div>
-            <div>
-              <div className="text-xs text-navy-600 font-semibold uppercase tracking-wide">
-                Escrow Protected
+            <div className="p-4 bg-white">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[0.65rem] uppercase tracking-wide font-semibold text-navy-500">
+                  Escrow Protected
+                </span>
               </div>
-              <div className="text-[0.7rem] text-navy-500">Active transactions</div>
+              <div className="font-display font-bold text-2xl text-navy-900 mb-1">
+                $2.4M
+              </div>
+              <div className="text-xs text-navy-500">
+                1,247 milestones protected this month
+              </div>
             </div>
           </div>
-          <div className="font-display font-bold text-2xl text-navy-900 mb-1">
-            $2.4M
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            1,247 milestones protected this month
+        </div>
+
+        {/* Secondary floating card */}
+        <div
+          className="hidden xl:block absolute right-[3%] bottom-[18%] w-[260px] animate-fade-up"
+          style={{ animationDelay: '0.8s' }}
+        >
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/30 bg-white/95 backdrop-blur-md p-3">
+            <div className="flex items-center gap-3">
+              <div className="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                <Image
+                  src={images.materialCement}
+                  alt="Cement bags"
+                  fill
+                  sizes="56px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[0.65rem] uppercase tracking-wide font-semibold text-gold-700">
+                  Live price
+                </div>
+                <div className="font-display font-bold text-sm text-navy-900 truncate">
+                  Dangote 50kg
+                </div>
+                <div className="text-xs text-navy-500">KES 750 · +0.5% this week</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60 animate-fade-up"
-        style={{ animationDelay: '0.8s' }}
+        style={{ animationDelay: '0.9s' }}
       >
         <span className="text-xs uppercase tracking-[0.2em] font-semibold">
           Scroll

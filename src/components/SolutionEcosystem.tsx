@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   Home,
@@ -11,6 +12,7 @@ import {
   Wrench,
 } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
+import { images } from '@/lib/images';
 
 const services = [
   {
@@ -19,6 +21,7 @@ const services = [
     description:
       'Buy, rent, or lease verified land, homes, apartments, and commercial space.',
     href: '/properties',
+    image: images.propertyLuxury1,
   },
   {
     icon: Layers,
@@ -26,6 +29,7 @@ const services = [
     description:
       'Cement, steel, timber, paint — verified suppliers with live market prices.',
     href: '/materials',
+    image: images.materialCement,
   },
   {
     icon: HardHat,
@@ -33,6 +37,7 @@ const services = [
     description:
       'General contractors and trade specialists, vetted and reviewed.',
     href: '/contractors',
+    image: images.contractor3,
   },
   {
     icon: Compass,
@@ -40,6 +45,7 @@ const services = [
     description:
       'Architects, engineers, quantity surveyors, and project managers.',
     href: '/professionals',
+    image: images.architectPortrait,
   },
   {
     icon: Wrench,
@@ -47,6 +53,7 @@ const services = [
     description:
       'Excavators, cranes, mixers, scaffolding — booked with delivery included.',
     href: '/equipment',
+    image: images.equipmentExcavator,
   },
   {
     icon: Truck,
@@ -54,6 +61,7 @@ const services = [
     description:
       'Tipper trucks, pickups, and crane transport for materials and equipment.',
     href: '/logistics',
+    image: images.worker2,
   },
   {
     icon: Wallet,
@@ -61,6 +69,7 @@ const services = [
     description:
       'Mortgages, construction loans, and insurance from partner institutions.',
     href: '/financing',
+    image: images.africanConstruction,
   },
   {
     icon: BarChart3,
@@ -68,6 +77,7 @@ const services = [
     description:
       'Schedules, budgets, milestone tracking, and daily progress reports.',
     href: '/projects',
+    image: images.siteAerial,
   },
 ];
 
@@ -93,24 +103,42 @@ export default function SolutionEcosystem() {
             <ScrollReveal
               key={service.title}
               delay={(i % 4) * 80}
-              className="card card-interactive p-6 group"
+              className="card card-interactive overflow-hidden group"
             >
               <Link href={service.href} className="flex flex-col h-full">
-                <div className="flex items-center justify-center w-12 h-12 mb-5 rounded-xl bg-gold-500/10 ring-1 ring-gold-500/20 group-hover:bg-gold-500 group-hover:ring-gold-500 transition-all">
-                  <service.icon
-                    className="w-6 h-6 text-gold-700 group-hover:text-navy-900 transition-colors"
-                    strokeWidth={2}
+                {/* Service image */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-navy-100">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900/85 via-navy-900/20 to-transparent" />
+                  {/* Icon overlay */}
+                  <div className="absolute top-3 right-3 flex items-center justify-center w-10 h-10 rounded-lg bg-white/95 backdrop-blur-sm ring-1 ring-gold-500/30 group-hover:bg-gold-500 transition-all">
+                    <service.icon
+                      className="w-5 h-5 text-gold-700 group-hover:text-navy-900 transition-colors"
+                      strokeWidth={2}
+                    />
+                  </div>
+                  {/* Service label on image */}
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <div className="font-display font-bold text-lg text-white drop-shadow">
+                      {service.title}
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-display font-semibold text-[1.05rem] text-navy-900 mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-navy-600 text-[0.875rem] leading-relaxed flex-1">
-                  {service.description}
-                </p>
-                <div className="mt-4 inline-flex items-center gap-1.5 text-gold-700 font-display font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                  Explore
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+
+                <div className="p-5 flex-1 flex flex-col">
+                  <p className="text-navy-600 text-[0.875rem] leading-relaxed flex-1">
+                    {service.description}
+                  </p>
+                  <div className="mt-4 inline-flex items-center gap-1.5 text-gold-700 font-display font-semibold text-sm group-hover:text-gold-900">
+                    Explore
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               </Link>
             </ScrollReveal>
