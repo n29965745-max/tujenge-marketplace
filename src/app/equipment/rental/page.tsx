@@ -1,45 +1,110 @@
-'use client';
+import Image from 'next/image';
+import { Calendar, MapPin, User, ShieldCheck, Truck, ArrowRight } from 'lucide-react';
+import PageLayout, { PageCTABanner } from '@/components/PageShell';
+import { images } from '@/lib/images';
 
-import React, { useState } from 'react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import s from '@/app/shared.module.css';
+export const metadata = { title: 'Equipment Rental Booking' };
 
-export default function EquipmentRentalPage() {
-  const [form, setForm] = useState({ type: '', duration: '', location: '', operator: 'no', delivery: 'no' });
-  const update = (f: string, v: string) => setForm(p => ({ ...p, [f]: v }));
-  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); console.log('Equipment Rental:', form); alert('Rental request submitted!'); };
-
+export default function RentalPage() {
   return (
-    <main>
-      <Navigation />
-      <section className={s.pageHero}><div className="container"><h1>Equipment Rental Request</h1><p>Fill in the details and we will connect you with verified equipment owners.</p></div></section>
-      <section className={s.formSection}>
-        <div className={s.formCard}>
-          <form onSubmit={handleSubmit}>
-            <h2 style={{ marginBottom: '32px' }}>Rental Details</h2>
-            <div className={s.formGroup}><label>Equipment Type</label>
-              <select className={s.formInput} required value={form.type} onChange={e => update('type', e.target.value)}>
-                <option value="">Select equipment</option><option>Excavator</option><option>Bulldozer</option><option>Crane</option><option>Concrete Mixer</option><option>Generator</option><option>Compactor</option><option>Forklift</option><option>Scaffolding</option>
-              </select>
-            </div>
-            <div className={s.formRow}>
-              <div className={s.formGroup}><label>Duration (days)</label><input className={s.formInput} type="number" required min={1} value={form.duration} onChange={e => update('duration', e.target.value)} placeholder="e.g. 14" /></div>
-              <div className={s.formGroup}><label>Project Location</label><input className={s.formInput} required value={form.location} onChange={e => update('location', e.target.value)} placeholder="City, Area" /></div>
-            </div>
-            <div className={s.formRow}>
-              <div className={s.formGroup}><label>Operator Needed?</label>
-                <select className={s.formInput} value={form.operator} onChange={e => update('operator', e.target.value)}><option value="no">No</option><option value="yes">Yes</option></select>
-              </div>
-              <div className={s.formGroup}><label>Delivery Required?</label>
-                <select className={s.formInput} value={form.delivery} onChange={e => update('delivery', e.target.value)}><option value="no">No – I will arrange pickup</option><option value="yes">Yes – Deliver to site</option></select>
-              </div>
-            </div>
-            <div className={s.btnRow}><button type="submit" className="btn btn-primary">Submit Rental Request</button></div>
-          </form>
+    <PageLayout>
+      <section className="relative pt-[72px] overflow-hidden bg-navy-900 text-white">
+        <div className="absolute inset-0">
+          <Image src={images.equipmentExcavator} alt="" fill priority sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-br from-navy-900/95 via-navy-900/85 to-navy-900/70" />
+        </div>
+        <div className="container-x relative py-20 lg:py-24 text-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-gold-300 text-xs font-semibold tracking-wide uppercase">
+            Book Equipment
+          </div>
+          <h1 className="font-display font-extrabold text-[clamp(2.25rem,5vw,3.75rem)] leading-tight mb-5">
+            Book construction equipment.
+          </h1>
+          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+            Excavators, cranes, mixers, scaffolding — book online, get it delivered, pay through escrow.
+          </p>
         </div>
       </section>
-      <Footer />
-    </main>
+
+      <section className="section bg-white">
+        <div className="container-x grid grid-cols-1 lg:grid-cols-3 gap-10">
+          <div className="lg:col-span-2">
+            <div className="card p-7 lg:p-9">
+              <h2 className="font-display font-bold text-2xl text-navy-900 mb-6">Rental details</h2>
+
+              <form className="space-y-5">
+                <div>
+                  <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">Equipment</label>
+                  <select className="input">
+                    <option>CAT 320 Excavator — KES 35,000/day</option>
+                    <option>Mobile Crane 50-ton — KES 85,000/day</option>
+                    <option>350L Concrete Mixer — KES 4,500/day</option>
+                    <option>CAT D6 Bulldozer — KES 65,000/day</option>
+                  </select>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">Start date</label>
+                    <input type="date" className="input" />
+                  </div>
+                  <div>
+                    <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">End date</label>
+                    <input type="date" className="input" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">Delivery address</label>
+                  <input type="text" className="input" placeholder="Site address or location" />
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <input type="checkbox" id="operator" className="w-5 h-5 accent-gold-500" />
+                  <label htmlFor="operator" className="text-sm text-navy-900">Add operator (+KES 5,000/day)</label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <input type="checkbox" id="insurance" className="w-5 h-5 accent-gold-500" defaultChecked />
+                  <label htmlFor="insurance" className="text-sm text-navy-900">Add damage insurance (+KES 2,000)</label>
+                </div>
+
+                <button type="submit" className="btn btn-primary btn-lg w-full">
+                  Book & pay securely <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <aside className="lg:col-span-1">
+            <div className="sticky top-24 card p-6 space-y-4">
+              <h3 className="font-display font-bold text-lg text-navy-900">Includes</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center gap-2 text-navy-600">
+                  <Truck className="w-4 h-4 text-emerald-600" /> Free delivery within 30km
+                </div>
+                <div className="flex items-center gap-2 text-navy-600">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" /> Escrow protection
+                </div>
+                <div className="flex items-center gap-2 text-navy-600">
+                  <Calendar className="w-4 h-4 text-emerald-600" /> Backup machine guarantee
+                </div>
+                <div className="flex items-center gap-2 text-navy-600">
+                  <User className="w-4 h-4 text-emerald-600" /> 24/7 support
+                </div>
+                <div className="flex items-center gap-2 text-navy-600">
+                  <MapPin className="w-4 h-4 text-emerald-600" /> GPS tracking included
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <PageCTABanner
+        title="Browse all equipment"
+        primary={{ label: 'See equipment listings', href: '/equipment' }}
+        secondary={{ label: 'Request quote', href: '/quote' }}
+      />
+    </PageLayout>
   );
 }

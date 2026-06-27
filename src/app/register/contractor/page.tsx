@@ -1,54 +1,101 @@
-'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRight, CheckCircle2, Hammer, Briefcase, Award, Users } from 'lucide-react';
+import PageLayout, { PageCTABanner } from '@/components/PageShell';
+import { images } from '@/lib/images';
 
-import React, { useState } from 'react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import s from '@/app/shared.module.css';
+export const metadata = { title: 'Join as a Contractor' };
 
-const specialties = ['General Contractor', 'Electrical', 'Plumbing', 'Carpentry & Joinery', 'Welding & Fabrication', 'Painting', 'Tiling', 'Roofing', 'Landscaping', 'Interior Fit-out', 'HVAC', 'Demolition'];
-
-export default function ContractorRegistrationPage() {
-  const [form, setForm] = useState({ company: '', contact: '', experience: '', license: '', portfolio: '', references: '' });
-  const update = (f: string, v: string) => setForm(p => ({ ...p, [f]: v }));
-  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); console.log('Contractor Registration:', form); alert('Registration submitted! We will review and verify within 48 hours.'); };
-
+export default function ContractorRegisterPage() {
   return (
-    <main>
-      <Navigation />
-      <section className={s.pageHero}><div className="container"><h1>Join as a Contractor</h1><p>Get access to verified project leads and grow your construction business.</p></div></section>
-      <section className={s.formSection}>
-        <div className={s.formCard}>
-          <form onSubmit={handleSubmit}>
-            <h2 style={{ marginBottom: '32px' }}>Company Details</h2>
-            <div className={s.formRow}>
-              <div className={s.formGroup}><label>Company / Business Name</label><input className={s.formInput} required value={form.company} onChange={e => update('company', e.target.value)} placeholder="e.g. BuildCorp Engineering" /></div>
-              <div className={s.formGroup}><label>Contact Phone</label><input className={s.formInput} required value={form.contact} onChange={e => update('contact', e.target.value)} /></div>
-            </div>
-            <div className={s.formRow}>
-              <div className={s.formGroup}><label>Years of Experience</label><input className={s.formInput} type="number" required value={form.experience} onChange={e => update('experience', e.target.value)} placeholder="e.g. 10" /></div>
-              <div className={s.formGroup}><label>License / NCA Number</label><input className={s.formInput} value={form.license} onChange={e => update('license', e.target.value)} placeholder="e.g. NCA/2024/XXXX" /></div>
-            </div>
-
-            <h2 style={{ margin: '40px 0 24px' }}>Specialties</h2>
-            <div className={s.checkboxGrid}>
-              {specialties.map(sp => (<label key={sp} className={s.checkboxLabel}><input type="checkbox" /> {sp}</label>))}
-            </div>
-
-            <h2 style={{ margin: '40px 0 24px' }}>Portfolio</h2>
-            <div className={s.formGroup}><label>Brief Portfolio Description</label><textarea className={s.formInput} rows={4} value={form.portfolio} onChange={e => update('portfolio', e.target.value)} placeholder="Describe your notable projects, specializations, and achievements..." /></div>
-            <div className={s.uploadArea}>📸 Upload portfolio images and license documents<br/><small>JPG, PNG, PDF up to 10MB each</small></div>
-
-            <h2 style={{ margin: '40px 0 24px' }}>References</h2>
-            <div className={s.formGroup}><label>Client References</label><textarea className={s.formInput} rows={3} value={form.references} onChange={e => update('references', e.target.value)} placeholder="Name, phone, and project for 2-3 past clients..." /></div>
-
-            <div style={{ marginTop: '32px' }}>
-              <label className={s.checkboxLabel} style={{ border: 'none', padding: '0' }}><input type="checkbox" required /> I agree to the Terms of Service and the Contractor Code of Conduct</label>
-            </div>
-            <div className={s.btnRow}><button type="submit" className="btn btn-primary">Submit Registration</button></div>
-          </form>
+    <PageLayout>
+      <section className="relative pt-[72px] overflow-hidden bg-navy-900 text-white">
+        <div className="absolute inset-0">
+          <Image src={images.contractor3} alt="" fill priority sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-br from-navy-900/95 via-navy-900/85 to-navy-900/70" />
+        </div>
+        <div className="container-x relative py-20 lg:py-24 text-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-6 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-gold-300 text-xs font-semibold tracking-wide uppercase">
+            <Hammer className="w-3.5 h-3.5" />
+            For Contractors
+          </div>
+          <h1 className="font-display font-extrabold text-[clamp(2.25rem,5vw,3.75rem)] leading-tight mb-5">
+            Win more projects. Get paid faster.
+          </h1>
+          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+            Join 1,200+ verified contractors on Tujenge. Receive qualified leads, manage projects in one place, and get paid within 48 hours of milestone approval.
+          </p>
         </div>
       </section>
-      <Footer />
-    </main>
+
+      <section className="section bg-white">
+        <div className="container-x">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+            {[
+              { Icon: Users, title: 'Qualified leads', body: 'No more cold calls. Receive requests from buyers who already match your specialty, location, and budget.' },
+              { Icon: Briefcase, title: 'Project management', body: 'Manage procurement, milestones, daily logs, and team coordination in one workspace.' },
+              { Icon: Award, title: 'Get paid in 48 hours', body: 'Escrow-protected milestone payments released within 48 hours of approval — never wait 90 days again.' },
+            ].map(({ Icon, title, body }) => (
+              <div key={title} className="card p-6 text-center">
+                <Icon className="w-8 h-8 text-gold-700 mx-auto mb-3" strokeWidth={2} />
+                <h3 className="font-display font-bold text-navy-900 mb-2">{title}</h3>
+                <p className="text-sm text-navy-600">{body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="max-w-2xl mx-auto">
+            <div className="card p-7 lg:p-9">
+              <h2 className="font-display font-bold text-2xl text-navy-900 mb-1">Apply for verification</h2>
+              <p className="text-sm text-navy-600 mb-6">Free to apply. Verification in 24-72 hours.</p>
+
+              <form className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">Company name</label>
+                    <input type="text" className="input" placeholder="Your company name" />
+                  </div>
+                  <div>
+                    <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">Registration number</label>
+                    <input type="text" className="input" placeholder="BN-XXXXX" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">Specialty</label>
+                    <select className="input">
+                      <option>General contractor</option>
+                      <option>Masonry</option>
+                      <option>Electrical</option>
+                      <option>Plumbing</option>
+                      <option>Roofing</option>
+                      <option>Painting</option>
+                      <option>Carpentry</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">Years of experience</label>
+                    <input type="number" min="0" className="input" placeholder="e.g. 10" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block font-display font-semibold text-sm text-navy-900 mb-1.5">Phone</label>
+                  <input type="tel" className="input" placeholder="+254 7XX XXX XXX" />
+                </div>
+                <button type="submit" className="btn btn-primary btn-lg w-full">
+                  Submit application <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <PageCTABanner
+        title="Already verified?"
+        primary={{ label: 'Sign in to your account', href: '/login' }}
+        secondary={{ label: 'Learn about Tujenge', href: '/about' }}
+      />
+    </PageLayout>
   );
 }
