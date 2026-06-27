@@ -1,0 +1,121 @@
+.faqSection {
+  background-color: var(--surface);
+}
+
+.faqList {
+  max-width: 800px;
+  margin: 0 auto 100px;
+}
+
+.faqItem {
+  background: var(--background);
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-normal);
+}
+
+.faqItem:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.faqItem.open {
+  border-color: var(--accent);
+  box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.1);
+}
+
+.faqHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+}
+
+.faqHeader h3 {
+  font-size: 1.15rem;
+  margin: 0;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.chevron {
+  color: var(--accent);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+  display: flex;
+}
+
+.faqItem.open .chevron {
+  transform: rotate(180deg);
+}
+
+.faqBody {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-normal);
+  padding: 0 24px;
+}
+
+.faqItem.open .faqBody {
+  max-height: 200px;
+  padding: 0 24px 24px;
+}
+
+.faqBody p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.finalCta {
+  background: var(--primary);
+  color: #fff;
+  border-radius: 24px;
+  padding: 80px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.finalCta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.2), transparent 70%);
+  pointer-events: none;
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 2;
+}
+
+.ctaContent h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.ctaContent p {
+  font-size: 1.25rem;
+  color: #D1D5DB;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaGroup {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .ctaGroup {
+    flex-direction: column;
+  }
+}

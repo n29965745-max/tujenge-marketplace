@@ -1,0 +1,36 @@
+.solutionSection {
+  background-color: var(--surface);
+}
+
+.serviceGrid {
+  margin-top: 60px;
+}
+
+.serviceCard {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.serviceCard:hover {
+  border-color: var(--accent);
+}
+
+.icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  transition: transform var(--transition-normal);
+}
+
+.serviceCard:hover .icon {
+  transform: translateY(-8px);
+}
+
+.serviceCard h3 {
+  font-size: 1.1rem;
+  margin: 0;
+}

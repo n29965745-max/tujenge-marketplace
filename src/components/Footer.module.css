@@ -1,0 +1,105 @@
+.footer {
+  background-color: var(--primary-light);
+  color: #D1D5DB;
+  padding-top: 80px;
+}
+
+.footerContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.logoIcon {
+  color: var(--accent);
+}
+
+.desc {
+  margin-bottom: 24px;
+  max-width: 300px;
+}
+
+.socials {
+  display: flex;
+  gap: 16px;
+  font-size: 0.9rem;
+}
+
+.socials a {
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+.socials a:hover {
+  color: var(--accent);
+}
+
+.linksCol h4, .newsletterCol h4 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.linksCol ul {
+  list-style: none;
+  padding: 0;
+}
+
+.linksCol li {
+  margin-bottom: 12px;
+}
+
+.linksCol a {
+  transition: color var(--transition-fast);
+}
+
+.linksCol a:hover {
+  color: var(--accent);
+}
+
+.newsletterCol p {
+  margin-bottom: 16px;
+}
+
+.subscribe {
+  display: flex;
+  gap: 8px;
+}
+
+.subscribe input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(0,0,0,0.2);
+  color: #fff;
+  font-family: var(--font-body);
+}
+
+.subscribe button {
+  padding: 12px 20px;
+}
+
+.bottomBar {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 24px 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .footerContainer {
+    grid-template-columns: 1fr;
+  }
+}
