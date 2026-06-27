@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
+import MobileCarousel from './MobileCarousel';
 import { images } from '@/lib/images';
 
 const testimonials = [
@@ -76,14 +77,12 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
-  const [index, setIndex] = useState(0);
   const [perPage, setPerPage] = useState(3);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const pausedRef = useRef(false);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const update = () => {
-      if (window.innerWidth < 768) setPerPage(1);
+      if (window.innerWidth < 640) setPerPage(1);
       else if (window.innerWidth < 1024) setPerPage(2);
       else setPerPage(3);
     };
@@ -92,36 +91,20 @@ export default function Testimonials() {
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  const maxIndex = Math.max(0, testimonials.length - perPage);
-
-  const next = () => setIndex((i) => (i >= maxIndex ? 0 : i + 1));
-  const prev = () => setIndex((i) => (i <= 0 ? maxIndex : i - 1));
-
-  useEffect(() => {
-    let timer: ReturnType<typeof setInterval> | null = null;
-    const tick = () => {
-      if (pausedRef.current) return;
-      setIndex((i) => (i >= maxIndex ? 0 : i + 1));
-    };
-    timer = setInterval(tick, 6000);
-    return () => {
-      if (timer) clearInterval(timer);
-    };
-  }, [maxIndex]);
+  const pageCount = Math.max(1, Math.ceil(testimonials.length / perPage));
 
   return (
     <section className="section bg-navy-900 text-white relative overflow-hidden">
-      {/* Subtle decorative shapes */}
       <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-gold-500/10 blur-3xl" aria-hidden />
       <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-emerald-500/5 blur-3xl" aria-hidden />
 
       <div className="container-x relative">
-        <ScrollReveal className="max-w-3xl mx-auto text-center mb-14">
+        <ScrollReveal className="max-w-3xl mx-auto text-center mb-10">
           <div className="eyebrow text-gold-300 mb-4">
             <span style={{ background: '#F4D58D' }} />
             Real projects. Real people.
           </div>
-          <h2 className="font-display font-bold text-[clamp(2rem,4vw,3rem)] leading-tight text-white mb-5">
+          <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,3rem)] leading-tight text-white mb-4">
             Trusted by Africans everywhere.
           </h2>
           <div className="flex items-center justify-center gap-3 text-white/80 text-sm">
@@ -136,101 +119,57 @@ export default function Testimonials() {
           </div>
         </ScrollReveal>
 
-        <div className="relative">
-          <div
-            ref={trackRef}
-            className="overflow-hidden"
-            onMouseEnter={() => (pausedRef.current = true)}
-            onMouseLeave={() => (pausedRef.current = false)}
-          >
-            <div
-              className="flex transition-transform duration-500 ease-premium"
-              style={{ transform: `translateX(-${index * (100 / perPage)}%)` }}
+        <MobileCarousel
+          dotCount={pageCount}
+          activeIndex={index}
+          onIndexChange={setIndex}
+          autoAdvance={5500}
+          mobileCardWidth="peek"
+          className="lg:gap-5"
+          wrapperClassName="px-1"
+        >
+          {testimonials.map((t, i) => (
+            <article
+              key={t.name}
+              className="h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 lg:p-7 hover:bg-white/10 hover:border-gold-300/30 transition-all duration-300"
             >
-              {testimonials.map((t) => (
-                <div
-                  key={t.name}
-                  className="flex-shrink-0 px-3"
-                  style={{ width: `${100 / perPage}%` }}
-                >
-                  <article className="h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-7 hover:bg-white/10 hover:border-gold-300/30 transition-all duration-300">
-                    <Quote className="w-8 h-8 text-gold-300/40 mb-4" strokeWidth={1.5} />
+              <Quote className="w-7 h-7 text-gold-300/40 mb-3" strokeWidth={1.5} />
 
-                    <div className="flex gap-0.5 mb-4">
-                      {[...Array(t.rating)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="w-4 h-4 text-gold-300 fill-gold-300"
-                        />
-                      ))}
-                    </div>
+              <div className="flex gap-0.5 mb-3">
+                {[...Array(t.rating)].map((_, j) => (
+                  <Star key={j} className="w-4 h-4 text-gold-300 fill-gold-300" />
+                ))}
+              </div>
 
-                    <blockquote className="text-white/90 text-[0.95rem] leading-relaxed mb-6">
-                      "{t.quote}"
-                    </blockquote>
+              <blockquote className="text-white/90 text-[0.92rem] leading-relaxed mb-5 line-clamp-4">
+                "{t.quote}"
+              </blockquote>
 
-                    <div className="flex items-center gap-3 pt-5 border-t border-white/10">
-                      <div className="relative w-11 h-11 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gold-500/40">
-                        <Image
-                          src={t.image}
-                          alt={t.name}
-                          fill
-                          sizes="44px"
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-display font-semibold text-white">
-                          {t.name}
-                        </div>
-                        <div className="text-white/60 text-xs truncate">
-                          {t.role} · {t.location}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-3 text-xs text-gold-300 font-display font-medium">
-                      {t.project}
-                    </div>
-                  </article>
+              <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                <div className="relative w-11 h-11 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-gold-500/40">
+                  <Image
+                    src={t.image}
+                    alt={t.name}
+                    fill
+                    sizes="44px"
+                    className="object-cover"
+                  />
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <button
-              type="button"
-              onClick={prev}
-              className="flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 transition-colors"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            <div className="flex gap-2">
-              {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setIndex(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === index ? 'w-8 bg-gold-500' : 'w-1.5 bg-white/30'
-                  }`}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={next}
-              className="flex items-center justify-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 transition-colors"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-display font-semibold text-white text-sm">
+                    {t.name}
+                  </div>
+                  <div className="text-white/60 text-xs truncate">
+                    {t.role} · {t.location}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-2 text-[0.7rem] text-gold-300 font-display font-medium">
+                {t.project}
+              </div>
+            </article>
+          ))}
+        </MobileCarousel>
       </div>
     </section>
   );
